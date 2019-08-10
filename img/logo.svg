@@ -10,8 +10,8 @@
    xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
    xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
    width="130mm"
-   height="50mm"
-   viewBox="0 0 460.62992 177.16534"
+   height="70mm"
+   viewBox="0 0 460.62992 248.03148"
    id="svg2"
    version="1.1"
    inkscape:version="0.91 r13725"
@@ -26,7 +26,7 @@
      inkscape:pageopacity="0"
      inkscape:pageshadow="2"
      inkscape:zoom="0.24748737"
-     inkscape:cx="-360.56774"
+     inkscape:cx="-279.75554"
      inkscape:cy="721.83078"
      inkscape:document-units="px"
      inkscape:current-layer="layer1"
@@ -54,7 +54,7 @@
      inkscape:label="Layer 1"
      inkscape:groupmode="layer"
      id="layer1"
-     transform="translate(0,-875.19683)">
+     transform="translate(0,-804.33069)">
     <flowRoot
        xml:space="preserve"
        id="flowRoot3336"
@@ -65,10 +65,10 @@
            height="308.57144"
            x="74.285713"
            y="106.64792" /></flowRegion><flowPara
-         id="flowPara3342"></flowPara></flowRoot>    <g
+         id="flowPara3342" /></flowRoot>    <g
        style="font-style:normal;font-weight:normal;font-size:40px;line-height:125%;font-family:sans-serif;letter-spacing:0px;word-spacing:0px;fill:#00ffff;fill-opacity:1;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
        id="flowRoot3344"
-       transform="matrix(2.0916845,0,0,2.0916845,-422.60313,549.30527)">
+       transform="matrix(2.0916845,0,0,2.0916845,-422.60313,513.8722)">
       <path
          d="m 232.91602,206.50293 q -10.57618,-14.29688 -23.81836,-23.81836 l 3.48632,-3.54492 q 13.85743,10.45898 24.52149,23.75976 l -4.18945,3.60352 z"
          style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:60px;line-height:125%;font-family:'Noto Sans';-inkscape-font-specification:'Noto Sans, Normal';text-align:start;writing-mode:lr-tb;text-anchor:start;fill:#00ffff;fill-opacity:1"
