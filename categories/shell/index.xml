@@ -1,14 +1,14 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes" ?>
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
-    <title>klosterbruders tech rants</title>
-    <link>https://klosterbruder.github.io/</link>
-    <description>Recent content on klosterbruders tech rants</description>
+    <title>Shell on klosterbruders tech rants</title>
+    <link>https://klosterbruder.github.io/categories/shell/</link>
+    <description>Recent content in Shell on klosterbruders tech rants</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
     <lastBuildDate>Sun, 11 Aug 2019 16:23:31 +0200</lastBuildDate>
     
-	<atom:link href="https://klosterbruder.github.io/index.xml" rel="self" type="application/rss+xml" />
+	<atom:link href="https://klosterbruder.github.io/categories/shell/index.xml" rel="self" type="application/rss+xml" />
     
     
     <item>
@@ -19,16 +19,6 @@
       <guid>https://klosterbruder.github.io/2019/08/text-processing-for-fun-and-profit/</guid>
       <description>Fasten your seatbelts, it&amp;rsquo;s going to get awkward.
 awk, together with grep, sed and fellows like tr, wc or cut are standard tools for commandline text processing on Linux, BSD and other Unix-based operating systems. They&amp;rsquo;re also bread-and-butter tools for sysadmins. Can&amp;rsquo;t remember which config file a certain setting was in? grep for it. Someone wants to know how many requests the webserver served yesterday? wc to the rescue! And so on.</description>
-    </item>
-    
-    <item>
-      <title>Hello, World!</title>
-      <link>https://klosterbruder.github.io/2019/08/hello-world/</link>
-      <pubDate>Sat, 10 Aug 2019 19:39:00 +0200</pubDate>
-      
-      <guid>https://klosterbruder.github.io/2019/08/hello-world/</guid>
-      <description>Hello, World!
-For some years now, I thought I should start a blog. Either because everyone and their grandma has one, or because I had exactly one more or less nonsensical idea I could&amp;rsquo;ve thrown out onto the internet. Being lazy as heck was the main deterrent of actually doing it, the other one was a mindset of having to do it &amp;ldquo;right&amp;rdquo; on first try. I&amp;rsquo;m not even sure what &amp;ldquo;right&amp;rdquo; means in the context of blogging, so those attempts didn&amp;rsquo;t last much longer.</description>
     </item>
     
   </channel>

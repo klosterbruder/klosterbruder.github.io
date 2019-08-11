@@ -6,10 +6,20 @@
     <description>Recent content in Posts on klosterbruders tech rants</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
-    <lastBuildDate>Sat, 10 Aug 2019 19:39:00 +0200</lastBuildDate>
+    <lastBuildDate>Sun, 11 Aug 2019 16:23:31 +0200</lastBuildDate>
     
 	<atom:link href="https://klosterbruder.github.io/posts/index.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>Text processing for fun (and profit?)</title>
+      <link>https://klosterbruder.github.io/2019/08/text-processing-for-fun-and-profit/</link>
+      <pubDate>Sun, 11 Aug 2019 16:23:31 +0200</pubDate>
+      
+      <guid>https://klosterbruder.github.io/2019/08/text-processing-for-fun-and-profit/</guid>
+      <description>Fasten your seatbelts, it&amp;rsquo;s going to get awkward.
+awk, together with grep, sed and fellows like tr, wc or cut are standard tools for commandline text processing on Linux, BSD and other Unix-based operating systems. They&amp;rsquo;re also bread-and-butter tools for sysadmins. Can&amp;rsquo;t remember which config file a certain setting was in? grep for it. Someone wants to know how many requests the webserver served yesterday? wc to the rescue! And so on.</description>
+    </item>
     
     <item>
       <title>Hello, World!</title>

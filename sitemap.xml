@@ -3,6 +3,11 @@
   xmlns:xhtml="http://www.w3.org/1999/xhtml">
   
   <url>
+    <loc>https://klosterbruder.github.io/2019/08/text-processing-for-fun-and-profit/</loc>
+    <lastmod>2019-08-11T16:23:31+02:00</lastmod>
+  </url>
+  
+  <url>
     <loc>https://klosterbruder.github.io/2019/08/hello-world/</loc>
     <lastmod>2019-08-10T19:39:00+02:00</lastmod>
   </url>
@@ -10,6 +15,12 @@
   <url>
     <loc>https://klosterbruder.github.io/categories/about/</loc>
     <lastmod>2019-08-10T19:39:00+02:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>https://klosterbruder.github.io/tags/awk/</loc>
+    <lastmod>2019-08-11T16:23:31+02:00</lastmod>
     <priority>0</priority>
   </url>
   
@@ -32,20 +43,44 @@
   </url>
   
   <url>
+    <loc>https://klosterbruder.github.io/tags/linux/</loc>
+    <lastmod>2019-08-11T16:23:31+02:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>https://klosterbruder.github.io/tags/logs/</loc>
+    <lastmod>2019-08-11T16:23:31+02:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
     <loc>https://klosterbruder.github.io/posts/</loc>
-    <lastmod>2019-08-10T19:39:00+02:00</lastmod>
+    <lastmod>2019-08-11T16:23:31+02:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>https://klosterbruder.github.io/categories/shell/</loc>
+    <lastmod>2019-08-11T16:23:31+02:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>https://klosterbruder.github.io/tags/shell-tools/</loc>
+    <lastmod>2019-08-11T16:23:31+02:00</lastmod>
     <priority>0</priority>
   </url>
   
   <url>
     <loc>https://klosterbruder.github.io/tags/</loc>
-    <lastmod>2019-08-10T19:39:00+02:00</lastmod>
+    <lastmod>2019-08-11T16:23:31+02:00</lastmod>
     <priority>0</priority>
   </url>
   
   <url>
     <loc>https://klosterbruder.github.io/</loc>
-    <lastmod>2019-08-10T19:39:00+02:00</lastmod>
+    <lastmod>2019-08-11T16:23:31+02:00</lastmod>
     <priority>0</priority>
   </url>
   
