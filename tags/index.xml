@@ -6,7 +6,7 @@
     <description>Recent content in Tags on klosterbruders tech rants</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
-    <lastBuildDate>Sun, 11 Aug 2019 16:23:31 +0200</lastBuildDate>
+    <lastBuildDate>Tue, 13 Aug 2019 22:44:19 +0200</lastBuildDate>
     
 	<atom:link href="https://klosterbruder.github.io/tags/index.xml" rel="self" type="application/rss+xml" />
     
@@ -14,7 +14,7 @@
     <item>
       <title>Awk</title>
       <link>https://klosterbruder.github.io/tags/awk/</link>
-      <pubDate>Sun, 11 Aug 2019 16:23:31 +0200</pubDate>
+      <pubDate>Tue, 13 Aug 2019 22:44:19 +0200</pubDate>
       
       <guid>https://klosterbruder.github.io/tags/awk/</guid>
       <description></description>
@@ -30,6 +30,15 @@
     </item>
     
     <item>
+      <title>Csv</title>
+      <link>https://klosterbruder.github.io/tags/csv/</link>
+      <pubDate>Tue, 13 Aug 2019 22:44:19 +0200</pubDate>
+      
+      <guid>https://klosterbruder.github.io/tags/csv/</guid>
+      <description></description>
+    </item>
+    
+    <item>
       <title>Hugo</title>
       <link>https://klosterbruder.github.io/tags/hugo/</link>
       <pubDate>Sat, 10 Aug 2019 19:39:00 +0200</pubDate>
@@ -41,7 +50,7 @@
     <item>
       <title>Linux</title>
       <link>https://klosterbruder.github.io/tags/linux/</link>
-      <pubDate>Sun, 11 Aug 2019 16:23:31 +0200</pubDate>
+      <pubDate>Tue, 13 Aug 2019 22:44:19 +0200</pubDate>
       
       <guid>https://klosterbruder.github.io/tags/linux/</guid>
       <description></description>
@@ -59,7 +68,7 @@
     <item>
       <title>Shell Tools</title>
       <link>https://klosterbruder.github.io/tags/shell-tools/</link>
-      <pubDate>Sun, 11 Aug 2019 16:23:31 +0200</pubDate>
+      <pubDate>Tue, 13 Aug 2019 22:44:19 +0200</pubDate>
       
       <guid>https://klosterbruder.github.io/tags/shell-tools/</guid>
       <description></description>

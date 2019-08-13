@@ -1,0 +1,153 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<title>More text processing for fun (and profit?)</title>
+		<meta name="viewport" content="width=device-width">
+		
+		<link rel="stylesheet" href="https://klosterbruder.github.io/css/hybrid.css">
+		<link rel="stylesheet" href="https://klosterbruder.github.io/css/style.css">
+		<link rel="stylesheet" href="https://klosterbruder.github.io/css/colors-dark.css">
+
+		
+	</head>
+	<body>
+		<header id="header">
+			<h1><a href="https://klosterbruder.github.io/">klosterbruders tech rants</a></h1>
+			<p>Have you tried turning it off and on again?</p>
+		</header>
+
+		<div id="page">
+			<div id="sidebar">
+				<nav>
+	
+</nav>
+
+			</div>
+
+			<div id="content">
+				
+	<article class="post">
+		<h1><a href="https://klosterbruder.github.io/2019/08/more-text-processing-for-fun-and-profit/">More text processing for fun (and profit?)</a> </h1>
+
+		<div class="post-content"><p>Why, hello again. My last <code>awk</code>ward post was but a single scratch on the surface of what <code>awk</code> can do. With this post, I will try to add a second one.</p>
+
+<p>The first example will involve a CSV file. CSV &ndash; comma-separated values &ndash; is a file type that presents values in a more or less tabular form, but instead of separated by spaces, they&rsquo;re separated by commas. Who would&rsquo;ve thought, huh? But! As mentioned <a href="/2019/08/text-processing-for-fun-and-profit/">already</a>, <code>awk</code> normally splits its input data on whitespace characters. &ldquo;Normally&rdquo; means it is changeable, and thus a CSV presents an easy way of demonstrating just how to do this. I opted to generate a test dataset with <a href="https://www.generatedata.com/">www.generatedata.com</a>, which is quick and easy unless you need something complicated or more than 100 rows of output. The whole generated dataset is <a href="dataAug-13-2019.csv">here</a>, but for my examples, I will limit myself to the first ten rows without the header (which is <code>name,city,age</code>). I also cheated a tiny bit and rearranged the rows, so example querys wouldn&rsquo;t just return a single row every time.</p>
+
+<pre><code>Orli Hogan,Tuticorin,34
+Lara Murray,Saintes,43
+Carly Macdonald,Paredones,28
+Leilani Dejesus,Rajapalaiyam,40
+Reuben Morse,San Bernardo,44
+Caesar Ferrell,San Giuliano di Puglia,30
+Lars Ford,Opdorp,41
+Camilla Koch,Colorno,23
+Mariko Compton,Rocca San Felice,23
+Reed Hill,Rajapalaiyam,40
+</code></pre>
+
+<p>Given the above set of data, one might want to print all of the cities, which is the second column. Calling <code>awk</code> without a filter expression, outputs just the requested column, so:</p>
+
+<pre><code>$ awk '{ print $2 }' dataAug-13-2019.csv
+Hogan,Tuticorin,34
+Murray,Saintes,43
+Macdonald,Paredones,28
+Dejesus,Rajapalaiyam,40
+Morse,San
+Ferrell,San
+Ford,Opdorp,41
+Koch,Colorno,23
+Compton,Rocca
+Hill,Rajapalaiyam,40
+</code></pre>
+
+<p>Uhm. But yes, that&rsquo;s the second column, when splitting at a whitespace. The important part &ndash; telling <code>awk</code> to split at the comma &ndash; is still missing. The helpful help of <code>awk --help</code> reveals that it can be done with a commandline option:</p>
+
+<pre><code>        -F fs                   --field-separator=fs
+</code></pre>
+
+<p>Adapting this to our needs yields the following:</p>
+
+<pre><code>$ awk -F ',' '{ print $2 }' dataAug-13-2019.csv
+Tuticorin
+Saintes
+Paredones
+Rajapalaiyam
+San Bernardo
+San Giuliano di Puglia
+Opdorp
+Colorno
+Rocca San Felice
+Rajapalaiyam
+</code></pre>
+
+<p>Ta-da! The cities, just as we wanted. And of course, you can combine this with a filter. To get the name of everyone living in <code>Rajapalaiyam</code>, you can do:</p>
+
+<pre><code>$ awk -F ',' '$2 == &quot;Rajapalaiyam&quot; { print $1 }' dataAug-13-2019.csv
+Leilani Dejesus
+Reed Hill
+</code></pre>
+
+<p>Two people. So far, so good. Now, there may be a time you wanted to know the persons who live in a city containing the particle <code>San</code>, like from <code>San Bernardo</code>. I can&rsquo;t really think of a practical use case, but hey, who am I to judge. <code>awk</code> is a whole language with the main goal of text processing, so of course it has something for this: regular expressions. Yes, yes, I know, regular expressions are hard, and nobody can understand them, but let me show a short example why that doesn&rsquo;t have to be true.</p>
+
+<pre><code>$ awk -F ',' '$2 ~ /San/ { print $1 }' dataAug-13-2019.csv
+Reuben Morse
+Caesar Ferrell
+Mariko Compton
+</code></pre>
+
+<p>Three people, one of each for <code>San Bernardo</code>, <code>San Giuliano di Puglia</code> and <code>Rocca San Felice</code>. That was still manageable, wasn&rsquo;t it? This regular expression pattern matches <code>San</code> anywhere, at the start, the end and the middle of a line, and it would even match if <code>San</code> was part of a word, like <code>Santa Clara</code>.</p>
+
+<p>In contrast to the previos example, the field to match against is bound to the pattern with a tilde (<code>~</code>) instead of two equal signs (<code>==</code>). The equal signs mean exactly <em>is equal to</em>, the tilde means <em>matches given regex</em>. The attentive reader might also have realized that I used slashes (<code>/</code>) instead of quotes (<code>&quot;</code>) to surround my pattern. This is no <em>must</em>, but a habit for me &ndash; my first real contact with regular expressions was in Perl, and regular expressions are always surrounded by slashes there. You could use quotes here as well. However, using slashes around an exact match with equal signs will not work.</p>
+
+<pre><code>$ awk -F ',' '$3 &lt; 30 { print $1 }' dataAug-13-2019.csv
+Carly Macdonald
+Camilla Koch
+Mariko Compton
+</code></pre>
+
+<p>What&rsquo;s this?! A numerical comparison? Yes! We just got ourselves every person below 30 years of age. Also note, in this one case it is possible to skip delimiters entirely. I would, however, recommend using quotes.</p>
+
+<p>Now, what else could one do with this? Combine different matches, for example. I mentioned in my <a href="/2019/08/text-processing-for-fun-and-profit/">previous</a> post that this works, after all. As <code>awk</code> is a whole text processing language, and supports multiple ways of matching and querying text, it also supports logical operators to combine this.</p>
+
+<pre><code>$ awk -F ',' '$3 &gt; 30 &amp;&amp; $3 &lt; 40 { print $1 }' dataAug-13-2019.csv
+Orli Hogan
+</code></pre>
+
+<p><code>Orli Hogan</code> is the only one <em>older</em> than 30 and <em>younger</em> than 40 &ndash; excluding both of these values. A simple <code>&amp;&amp;</code>, a logical <code>and</code>, is sufficient here. The logical <code>or</code> &ndash; written as <code>||</code>, two pipes &ndash; is its counterpart. Of course, you can combine different types of conditions. Let&rsquo;s look at people from cities <em>beginning</em> with <code>San</code>, who are at most 30 years old.</p>
+
+<pre><code>$ awk -F ',' '$3 &lt;= 30 &amp;&amp; $2 ~ /^San/ { print $1 }' dataAug-13-2019.csv
+Caesar Ferrell
+</code></pre>
+
+<p>One match. Thinking back to when we first queried for people from cities containing <code>San</code>, one of those cities had it in the middle, which gets kicked out now &ndash; the regular expression <code>^San</code> only matches a string <strong>beginning</strong> with it. The second person would match the city, but gets kicked due to having an age above 30. The logical <code>and</code> calls for both conditions to be true. Had we used a logical <code>or</code>, we would&rsquo;ve gotten a bigger set of lines, since only one condition has to be true for an <code>or</code> to succeed.</p>
+
+<pre><code>$ awk -F ',' '$3 &lt;= 30 || $2 ~ /^San/ { print $1 }' dataAug-13-2019.csv
+Carly Macdonald
+Reuben Morse
+Caesar Ferrell
+Camilla Koch
+Mariko Compton
+</code></pre>
+
+<p>Given only this comparatively small set of features, you can already do a boatload of dissection of text files or the textual output of other commandline programs. Remember, <code>awk</code>ward problems require <code>awk</code>ward solutions, and may the odds be ever in your favor.</p>
+</div>
+
+		<p class="meta">Posted on <span class="postdate">13. August 2019</span></p>
+	</article>
+
+			</div>
+
+			<footer id="footer">
+				<p class="copyright">
+					
+						Powered by <a href="https://gohugo.io/">Hugo</a> and the
+						<a href="https://github.com/bake/solar-theme-hugo">Solar</a>-theme.
+					
+				</p>
+			</footer>
+		</div>
+
+		
+	</body>
+</html>
