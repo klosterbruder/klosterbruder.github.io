@@ -3,8 +3,78 @@
   xmlns:xhtml="http://www.w3.org/1999/xhtml">
   
   <url>
+    <loc>https://klosterbruder.github.io/categories/</loc>
+    <lastmod>2019-08-30T21:19:17+02:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://klosterbruder.github.io/</loc>
+    <lastmod>2019-08-30T21:19:17+02:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://klosterbruder.github.io/tags/linux/</loc>
+    <lastmod>2019-08-30T21:19:17+02:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://klosterbruder.github.io/tags/mail/</loc>
+    <lastmod>2019-08-30T21:19:17+02:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://klosterbruder.github.io/posts/</loc>
+    <lastmod>2019-08-30T21:19:17+02:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://klosterbruder.github.io/tags/rant/</loc>
+    <lastmod>2019-08-30T21:19:17+02:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://klosterbruder.github.io/categories/software/</loc>
+    <lastmod>2019-08-30T21:19:17+02:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://klosterbruder.github.io/tags/</loc>
+    <lastmod>2019-08-30T21:19:17+02:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://klosterbruder.github.io/2019/08/when-a-mail-client-isnt-just-a-mail-client/</loc>
+    <lastmod>2019-08-30T21:19:17+02:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://klosterbruder.github.io/tags/awk/</loc>
+    <lastmod>2019-08-13T22:44:19+02:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://klosterbruder.github.io/tags/csv/</loc>
+    <lastmod>2019-08-13T22:44:19+02:00</lastmod>
+  </url>
+  
+  <url>
     <loc>https://klosterbruder.github.io/2019/08/more-text-processing-for-fun-and-profit/</loc>
     <lastmod>2019-08-13T22:44:19+02:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://klosterbruder.github.io/categories/shell/</loc>
+    <lastmod>2019-08-13T22:44:19+02:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://klosterbruder.github.io/tags/shell-tools/</loc>
+    <lastmod>2019-08-13T22:44:19+02:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://klosterbruder.github.io/tags/logs/</loc>
+    <lastmod>2019-08-11T16:23:31+02:00</lastmod>
   </url>
   
   <url>
@@ -13,86 +83,23 @@
   </url>
   
   <url>
-    <loc>https://klosterbruder.github.io/2019/08/hello-world/</loc>
-    <lastmod>2019-08-10T19:39:00+02:00</lastmod>
-  </url>
-  
-  <url>
     <loc>https://klosterbruder.github.io/categories/about/</loc>
     <lastmod>2019-08-10T19:39:00+02:00</lastmod>
-    <priority>0</priority>
-  </url>
-  
-  <url>
-    <loc>https://klosterbruder.github.io/tags/awk/</loc>
-    <lastmod>2019-08-13T22:44:19+02:00</lastmod>
-    <priority>0</priority>
   </url>
   
   <url>
     <loc>https://klosterbruder.github.io/tags/blogging/</loc>
     <lastmod>2019-08-10T19:39:00+02:00</lastmod>
-    <priority>0</priority>
   </url>
   
   <url>
-    <loc>https://klosterbruder.github.io/categories/</loc>
+    <loc>https://klosterbruder.github.io/2019/08/hello-world/</loc>
     <lastmod>2019-08-10T19:39:00+02:00</lastmod>
-    <priority>0</priority>
-  </url>
-  
-  <url>
-    <loc>https://klosterbruder.github.io/tags/csv/</loc>
-    <lastmod>2019-08-13T22:44:19+02:00</lastmod>
-    <priority>0</priority>
   </url>
   
   <url>
     <loc>https://klosterbruder.github.io/tags/hugo/</loc>
     <lastmod>2019-08-10T19:39:00+02:00</lastmod>
-    <priority>0</priority>
-  </url>
-  
-  <url>
-    <loc>https://klosterbruder.github.io/tags/linux/</loc>
-    <lastmod>2019-08-13T22:44:19+02:00</lastmod>
-    <priority>0</priority>
-  </url>
-  
-  <url>
-    <loc>https://klosterbruder.github.io/tags/logs/</loc>
-    <lastmod>2019-08-11T16:23:31+02:00</lastmod>
-    <priority>0</priority>
-  </url>
-  
-  <url>
-    <loc>https://klosterbruder.github.io/posts/</loc>
-    <lastmod>2019-08-13T22:44:19+02:00</lastmod>
-    <priority>0</priority>
-  </url>
-  
-  <url>
-    <loc>https://klosterbruder.github.io/categories/shell/</loc>
-    <lastmod>2019-08-13T22:44:19+02:00</lastmod>
-    <priority>0</priority>
-  </url>
-  
-  <url>
-    <loc>https://klosterbruder.github.io/tags/shell-tools/</loc>
-    <lastmod>2019-08-13T22:44:19+02:00</lastmod>
-    <priority>0</priority>
-  </url>
-  
-  <url>
-    <loc>https://klosterbruder.github.io/tags/</loc>
-    <lastmod>2019-08-13T22:44:19+02:00</lastmod>
-    <priority>0</priority>
-  </url>
-  
-  <url>
-    <loc>https://klosterbruder.github.io/</loc>
-    <lastmod>2019-08-13T22:44:19+02:00</lastmod>
-    <priority>0</priority>
   </url>
   
 </urlset>

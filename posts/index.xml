@@ -6,10 +6,20 @@
     <description>Recent content in Posts on klosterbruders tech rants</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
-    <lastBuildDate>Tue, 13 Aug 2019 22:44:19 +0200</lastBuildDate>
+    <lastBuildDate>Fri, 30 Aug 2019 21:19:17 +0200</lastBuildDate>
     
 	<atom:link href="https://klosterbruder.github.io/posts/index.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>When a mail client isn&#39;t just a mail client</title>
+      <link>https://klosterbruder.github.io/2019/08/when-a-mail-client-isnt-just-a-mail-client/</link>
+      <pubDate>Fri, 30 Aug 2019 21:19:17 +0200</pubDate>
+      
+      <guid>https://klosterbruder.github.io/2019/08/when-a-mail-client-isnt-just-a-mail-client/</guid>
+      <description>The case of Mailspring.
+Today, I was in need of a mail client for testing a server. I didn&amp;rsquo;t want to use my usual one, since that one is overloaded with accounts already. Installing one of the other big and well-known mail clients or -suites didn&amp;rsquo;t sound too appealing either. So I went to the search engine of my distrust, and keyed in &amp;ldquo;simple imap client linux&amp;rdquo;, in hopes of being presented with a list of small and simple IMAP mail clients.</description>
+    </item>
     
     <item>
       <title>More text processing for fun (and profit?)</title>
