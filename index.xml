@@ -6,10 +6,19 @@
     <description>Recent content on klosterbruders tech rants</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
-    <lastBuildDate>Fri, 30 Aug 2019 21:19:17 +0200</lastBuildDate>
+    <lastBuildDate>Wed, 01 Jan 2020 23:40:28 +0100</lastBuildDate>
     
 	<atom:link href="https://klosterbruder.github.io/index.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>New year, old me</title>
+      <link>https://klosterbruder.github.io/2020/01/new-year-old-me/</link>
+      <pubDate>Wed, 01 Jan 2020 23:40:28 +0100</pubDate>
+      
+      <guid>https://klosterbruder.github.io/2020/01/new-year-old-me/</guid>
+      <description>The year 2019 has gone just as 2020 came, ringing in the decade of the (hopefully) golden &amp;lsquo;20s once again (see also: XKCD 2249). All the while I realized that I have shamefully neglected the blog I started on a whim, even though actually having several topic ideas to write about. I have no excuse, I&amp;rsquo;m just lazy like that. Getting from &amp;ldquo;Oh, I could write about that!&amp;rdquo; to an actual blog post that&amp;rsquo;s not just an incoherent string of thought fragments always seems like way too much of a pain in the rear department for the precious free minutes between youtube, random webpages and my warm bed.</description>
+    </item>
     
     <item>
       <title>When a mail client isn&#39;t just a mail client</title>

@@ -6,10 +6,19 @@
     <description>Recent content in Tags on klosterbruders tech rants</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
-    <lastBuildDate>Fri, 30 Aug 2019 21:19:17 +0200</lastBuildDate>
+    <lastBuildDate>Wed, 01 Jan 2020 23:40:28 +0100</lastBuildDate>
     
 	<atom:link href="https://klosterbruder.github.io/tags/index.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>Blogging</title>
+      <link>https://klosterbruder.github.io/tags/blogging/</link>
+      <pubDate>Wed, 01 Jan 2020 23:40:28 +0100</pubDate>
+      
+      <guid>https://klosterbruder.github.io/tags/blogging/</guid>
+      <description></description>
+    </item>
     
     <item>
       <title>Linux</title>
@@ -71,15 +80,6 @@
       <pubDate>Sun, 11 Aug 2019 16:23:31 +0200</pubDate>
       
       <guid>https://klosterbruder.github.io/tags/logs/</guid>
-      <description></description>
-    </item>
-    
-    <item>
-      <title>Blogging</title>
-      <link>https://klosterbruder.github.io/tags/blogging/</link>
-      <pubDate>Sat, 10 Aug 2019 19:39:00 +0200</pubDate>
-      
-      <guid>https://klosterbruder.github.io/tags/blogging/</guid>
       <description></description>
     </item>
     
