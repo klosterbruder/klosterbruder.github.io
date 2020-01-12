@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Hardware on klosterbruders tech rants</title>
+    <link>https://klosterbruder.github.io/categories/hardware/</link>
+    <description>Recent content in Hardware on klosterbruders tech rants</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en-us</language>
+    <lastBuildDate>Sun, 12 Jan 2020 20:29:06 +0100</lastBuildDate>
+    
+	<atom:link href="https://klosterbruder.github.io/categories/hardware/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+    <item>
+      <title>Not all cables are created equally</title>
+      <link>https://klosterbruder.github.io/2020/01/not-all-cables-are-created-equally/</link>
+      <pubDate>Sun, 12 Jan 2020 20:29:06 +0100</pubDate>
+      
+      <guid>https://klosterbruder.github.io/2020/01/not-all-cables-are-created-equally/</guid>
+      <description>After a long time of planning, I finally ordered parts for a new PC last year. Black Friday seemed the best time to order, even though there were less deals than I&amp;rsquo;d have wanted. While waiting for my orders to be shipped, I also found out the availability numbers in the shops were a bit overstated. That might be worth a rant for itself, but sometimes one should just let bygones be bygones.</description>
+    </item>
+    
+  </channel>
+</rss>
