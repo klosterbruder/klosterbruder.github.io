@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>Software on klosterbruders tech rants</title>
@@ -6,11 +6,7 @@
     <description>Recent content in Software on klosterbruders tech rants</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
-    <lastBuildDate>Fri, 30 Aug 2019 21:19:17 +0200</lastBuildDate>
-    
-	<atom:link href="https://klosterbruder.github.io/categories/software/index.xml" rel="self" type="application/rss+xml" />
-    
-    
+    <lastBuildDate>Fri, 30 Aug 2019 21:19:17 +0200</lastBuildDate><atom:link href="https://klosterbruder.github.io/categories/software/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>When a mail client isn&#39;t just a mail client</title>
       <link>https://klosterbruder.github.io/2019/08/when-a-mail-client-isnt-just-a-mail-client/</link>

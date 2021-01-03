@@ -39,21 +39,15 @@
 		<h1><a href="https://klosterbruder.github.io/2019/08/text-processing-for-fun-and-profit/">Text processing for fun (and profit?)</a> </h1>
 
 		<div class="post-content"><p>Fasten your seatbelts, it&rsquo;s going to get <code>awk</code>ward.</p>
-
-<p><code>awk</code>, together with <code>grep</code>, <code>sed</code> and fellows like <code>tr</code>, <code>wc</code> or <code>cut</code> are standard tools for commandline text processing on Linux, BSD and other Unix-based operating systems. They&rsquo;re also bread-and-butter tools for sysadmins. Can&rsquo;t remember which config file a certain setting was in? <code>grep</code> for it. Someone wants to know how many requests the webserver served yesterday? <code>wc</code> to the rescue! And so on. The nice thing is, that you can combine these tools with pipes (<code>|</code>) &ndash; the question &ldquo;How many requests did this IP make to our servers?&rdquo; can be answered by <code>grep</code>ing for the IP in the logs, then piping it to <code>wc</code> for counting. There&rsquo;s a lot you can do this way, but I digress, I guess.</p>
-
+<p><code>awk</code>, together with <code>grep</code>, <code>sed</code> and fellows like <code>tr</code>, <code>wc</code> or <code>cut</code> are standard tools for command line text processing on Linux, BSD and other Unix-based operating systems. They&rsquo;re also bread-and-butter tools for sysadmins. Can&rsquo;t remember which config file a certain setting was in? <code>grep</code> for it. Someone wants to know how many requests the web server served yesterday? <code>wc</code> to the rescue! And so on. The nice thing is, that you can combine these tools with pipes (<code>|</code>) &ndash; the question &ldquo;How many requests did this IP make to our servers?&rdquo; can be answered by <code>grep</code>ing for the IP in the logs, then piping it to <code>wc</code> for counting. There&rsquo;s a lot you can do this way, but I digress, I guess.</p>
 <p>I personally like to use <code>awk</code> to process logs. It&rsquo;s a two-for-one tool, since it can do most things <code>grep</code> can to, as well as a lot of things <code>cut</code> can do. <code>awk</code> splits the input at a delimiter &ndash; by default any whitespace character &ndash; and puts them into numbered variables, like <code>$1</code>, <code>$2</code> and so on. Then, you can filter this line based on the exact variable you want. That&rsquo;s especially helpful with well-defined input formats, like logs. Consider the following excerpt of an <code>nginx</code> access log. Imagine it is stored as <code>access.log</code> file in your current working directory.</p>
-
 <pre><code>169.254.1.1 - - [01/Jan/2000:15:30:00 +0530] &quot;GET /backend/ HTTP/2.0&quot; 200 1514 &quot;-&quot; &quot;Mozilla/4.0 (compatible; MSIE 6.0; Windows NT 5.1; SV1)&quot;
 169.254.1.1 - - [01/Jan/2000:15:30:00 +0530] &quot;GET /themes/Backend/ExtJs/backend/_resources/resources/css/ext-all.css? HTTP/2.0&quot; 200 112043 &quot;https://xampleshop.com/backend/&quot; &quot;Mozilla/4.0 (compatible; MSIE 6.0; Windows NT 5.1; SV1)&quot;
 169.254.1.1 - - [01/Jan/2000:15:30:00 +0530] &quot;GET /themes/Backend/ExtJs/backend/_resources/resources/css/core-icon-set.css? HTTP/2.0&quot; 200 3032 &quot;https://xampleshop.com/backend/&quot; &quot;Mozilla/4.0 (compatible; MSIE 6.0; Windows NT 5.1; SV1)&quot;
 169.254.1.1 - - [01/Jan/2000:15:30:00 +0530] &quot;GET /themes/Backend/ExtJs/backend/_resources/resources/css/core-icon-set-new.css? HTTP/2.0&quot; 200 4460 &quot;https://xampleshop.com/backend/&quot; &quot;Mozilla/4.0 (compatible; MSIE 6.0; Windows NT 5.1; SV1)&quot;
 169.254.1.1 - - [01/Jan/2000:15:30:00 +0530] &quot;GET /engine/Library/CodeMirror/lib/codemirror.css? HTTP/2.0&quot; 200 2502 &quot;https://xampleshop.com/backend/&quot; &quot;Mozilla/4.0 (compatible; MSIE 6.0; Windows NT 5.1; SV1)&quot;
 169.254.1.1 - - [01/Jan/2000:15:30:00 +0530] &quot;GET /themes/Backend/ExtJs/backend/_resources/styles/growl.css HTTP/2.0&quot; 200 4095 &quot;https://xampleshop.com/backend/&quot; &quot;Mozilla/4.0 (compatible; MSIE 6.0; Windows NT 5.1; SV1)&quot;
-</code></pre>
-
-<p>A <code>grep</code> for <code>'backend'</code> won&rsquo;t help you finding the number of requests that accessed <code>https://xampleshop.com/backend/</code>, because those will also list requests for the CSS files &ndash; note the referrer part of the log, near the end of the line.</p>
-
+</code></pre><p>A <code>grep</code> for <code>'backend'</code> won&rsquo;t help you finding the number of requests that accessed <code>https://xampleshop.com/backend/</code>, because those will also list requests for the CSS files &ndash; note the referrer part of the log, near the end of the line.</p>
 <pre><code>$ grep 'backend' access.log
 169.254.1.1 - - [01/Jan/2000:15:30:00 +0530] &quot;GET /backend/ HTTP/2.0&quot; 200 1514 &quot;-&quot; &quot;Mozilla/4.0 (compatible; MSIE 6.0; Windows NT 5.1; SV1)&quot;
 169.254.1.1 - - [01/Jan/2000:15:30:00 +0530] &quot;GET /themes/Backend/ExtJs/backend/_resources/resources/css/ext-all.css? HTTP/2.0&quot; 200 112043 &quot;https://xampleshop.com/backend/&quot; &quot;Mozilla/4.0 (compatible; MSIE 6.0; Windows NT 5.1; SV1)&quot;
@@ -61,46 +55,29 @@
 169.254.1.1 - - [01/Jan/2000:15:30:00 +0530] &quot;GET /themes/Backend/ExtJs/backend/_resources/resources/css/core-icon-set-new.css? HTTP/2.0&quot; 200 4460 &quot;https://xampleshop.com/backend/&quot; &quot;Mozilla/4.0 (compatible; MSIE 6.0; Windows NT 5.1; SV1)&quot;
 169.254.1.1 - - [01/Jan/2000:15:30:00 +0530] &quot;GET /engine/Library/CodeMirror/lib/codemirror.css? HTTP/2.0&quot; 200 2502 &quot;https://xampleshop.com/backend/&quot; &quot;Mozilla/4.0 (compatible; MSIE 6.0; Windows NT 5.1; SV1)&quot;
 169.254.1.1 - - [01/Jan/2000:15:30:00 +0530] &quot;GET /themes/Backend/ExtJs/backend/_resources/styles/growl.css HTTP/2.0&quot; 200 4095 &quot;https://xampleshop.com/backend/&quot; &quot;Mozilla/4.0 (compatible; MSIE 6.0; Windows NT 5.1; SV1)&quot;
-</code></pre>
-
-<p>One solution would be an adapted filter expression, like <code>'GET /backend/'</code>, which works until you also deal with <code>POST</code> requests.</p>
-
+</code></pre><p>One solution would be an adapted filter expression, like <code>'GET /backend/'</code>, which works until you also deal with <code>POST</code> requests.</p>
 <pre><code>$ grep 'GET /backend/' access.log
 169.254.1.1 - - [01/Jan/2000:15:30:00 +0530] &quot;GET /backend/ HTTP/2.0&quot; 200 1514 &quot;-&quot; &quot;Mozilla/4.0 (compatible; MSIE 6.0; Windows NT 5.1; SV1)&quot;
-</code></pre>
-
-<p>Enter <code>awk</code>. As I said, it splits the input by whitespace characters, which is exactly what we want in this case. <code>$1</code> is the requesting IP, <code>$4</code> and <code>$5</code> the date/time and offset to UTC, and <code>$7</code> finally is the requested URL.</p>
-
+</code></pre><p>Enter <code>awk</code>. As I said, it splits the input by whitespace characters, which is exactly what we want in this case. <code>$1</code> is the requesting IP, <code>$4</code> and <code>$5</code> the date/time and offset to UTC, and <code>$7</code> finally is the requested URL.</p>
 <pre><code>$ awk '$7 == &quot;/backend/&quot;' access.log
 169.254.1.1 - - [01/Jan/2000:15:30:00 +0530] &quot;GET /backend/ HTTP/2.0&quot; 200 1514 &quot;-&quot; &quot;Mozilla/4.0 (compatible; MSIE 6.0; Windows NT 5.1; SV1)&quot;
-</code></pre>
-
-<p>The result is not much different, but it&rsquo;s a bit more to write. It also forces you to know the structure of your data, and think about what you want to match against. <code>awk</code> supports partial matches and regular expressions, so you could very well search for <code>backend</code> just anywhere in the line, the result would be the same as with <code>grep</code>, though. More thinking and more typing &ndash; is it worth it? <strong>Definitely.</strong></p>
-
+</code></pre><p>The result is not much different, but it&rsquo;s a bit more to write. It also forces you to know the structure of your data, and think about what you want to match against. <code>awk</code> supports partial matches and regular expressions, so you could very well search for <code>backend</code> just anywhere in the line, the result would be the same as with <code>grep</code>, though. More thinking and more typing &ndash; is it worth it? <strong>Definitely.</strong></p>
 <p>Consider, again, the above log. You got the whole line that fits your filter criteria, but you only need the IP. Piping the result of <code>grep</code> to <code>cut</code> is one way to get it.</p>
-
 <pre><code>$ grep 'GET /backend' access.log | cut -d ' ' -f 1
 169.254.1.1
-</code></pre>
-
-<p>But <code>awk</code> can do both tasks at once.</p>
-
+</code></pre><p>But <code>awk</code> can do both tasks at once.</p>
 <pre><code>$ awk '$7 == &quot;/backend/&quot; { print $1 }' access.log
 169.254.1.1
-</code></pre>
-
-<p>Once again, the result is the same. In the second case, however, only one program got used. As soon as you need to filter for different criteria &ndash; not only the requested URL, but also the time, the request type or some other things &ndash; <code>awk</code> shines more and more, in my opinion. With <code>grep</code>, you either construct a huge filter expression or pipe multiple <code>grep</code>s together, while in <code>awk</code>, you can combine multiple short and concise filter expressions with logical operators like <code>&amp;&amp;</code>. You can do this, because <code>awk</code> is far more than a simple replacement for <code>grep</code>, it is actually a whole &ldquo;domain-specific language designed for text processing&rdquo;<sup class="footnote-ref" id="fnref:1"><a href="#fn:1">1</a></sup>. That being said, I only know a very small amount of it, and I&rsquo;m always excited to discover new ways of incorporating it into my daily work.</p>
-
+</code></pre><p>Once again, the result is the same. In the second case, however, only one program got used. As soon as you need to filter for different criteria &ndash; not only the requested URL, but also the time, the request type or some other things &ndash; <code>awk</code> shines more and more, in my opinion. With <code>grep</code>, you either construct a huge filter expression or pipe multiple <code>grep</code>s together, while in <code>awk</code>, you can combine multiple short and concise filter expressions with logical operators like <code>&amp;&amp;</code>. You can do this, because <code>awk</code> is far more than a simple replacement for <code>grep</code>, it is actually a whole &ldquo;domain-specific language designed for text processing&rdquo;<sup id="fnref:1"><a href="#fn:1" class="footnote-ref" role="doc-noteref">1</a></sup>. That being said, I only know a very small amount of it, and I&rsquo;m always excited to discover new ways of incorporating it into my daily work.</p>
 <p>Lastly, let me mention that <code>awk</code> is not the be-all and end-all either. All tools have their right to exist, <code>grep</code> is admittedly easier to start with and faster to use for simple queries, and some problems are better solved by other means. Still, I will probably bother you with this a few more times in this blog, so keep your seatbelts fastened for more <code>awk</code>ward problems that fit <code>awk</code>ward solutions!</p>
-<div class="footnotes">
-
-<hr />
-
+<section class="footnotes" role="doc-endnotes">
+<hr>
 <ol>
-<li id="fn:1">Quote source: <a href="https://en.wikipedia.org/wiki/AWK">Wikipedia</a>
- <a class="footnote-return" href="#fnref:1"><sup>[return]</sup></a></li>
+<li id="fn:1" role="doc-endnote">
+<p>Quote source: <a href="https://en.wikipedia.org/wiki/AWK">Wikipedia</a> <a href="#fnref:1" class="footnote-backref" role="doc-backlink">&#x21a9;&#xfe0e;</a></p>
+</li>
 </ol>
-</div>
+</section>
 </div>
 
 		<p class="meta">Posted on <span class="postdate">11. August 2019</span></p>

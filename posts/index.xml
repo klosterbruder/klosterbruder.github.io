@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>Posts on klosterbruders tech rants</title>
@@ -6,11 +6,7 @@
     <description>Recent content in Posts on klosterbruders tech rants</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
-    <lastBuildDate>Sun, 12 Jan 2020 20:29:06 +0100</lastBuildDate>
-    
-	<atom:link href="https://klosterbruder.github.io/posts/index.xml" rel="self" type="application/rss+xml" />
-    
-    
+    <lastBuildDate>Sun, 12 Jan 2020 20:29:06 +0100</lastBuildDate><atom:link href="https://klosterbruder.github.io/posts/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>Not all cables are created equally</title>
       <link>https://klosterbruder.github.io/2020/01/not-all-cables-are-created-equally/</link>
@@ -26,7 +22,7 @@
       <pubDate>Wed, 01 Jan 2020 23:40:28 +0100</pubDate>
       
       <guid>https://klosterbruder.github.io/2020/01/new-year-old-me/</guid>
-      <description>The year 2019 has gone just as 2020 came, ringing in the decade of the (hopefully) golden &amp;lsquo;20s once again (see also: XKCD 2249). All the while I realized that I have shamefully neglected the blog I started on a whim, even though actually having several topic ideas to write about. I have no excuse, I&amp;rsquo;m just lazy like that. Getting from &amp;ldquo;Oh, I could write about that!&amp;rdquo; to an actual blog post that&amp;rsquo;s not just an incoherent string of thought fragments always seems like way too much of a pain in the rear department for the precious free minutes between youtube, random webpages and my warm bed.</description>
+      <description>The year 2019 has gone just as 2020 came, ringing in the decade of the (hopefully) golden &amp;rsquo;20s once again (see also: XKCD 2249). All the while I realized that I have shamefully neglected the blog I started on a whim, even though actually having several topic ideas to write about. I have no excuse, I&amp;rsquo;m just lazy like that. Getting from &amp;ldquo;Oh, I could write about that!&amp;rdquo; to an actual blog post that&amp;rsquo;s not just an incoherent string of thought fragments always seems like way too much of a pain in the rear department for the precious free minutes between Youtube, random web pages and my warm bed.</description>
     </item>
     
     <item>
@@ -56,7 +52,7 @@ The first example will involve a CSV file. CSV &amp;ndash; comma-separated value
       
       <guid>https://klosterbruder.github.io/2019/08/text-processing-for-fun-and-profit/</guid>
       <description>Fasten your seatbelts, it&amp;rsquo;s going to get awkward.
-awk, together with grep, sed and fellows like tr, wc or cut are standard tools for commandline text processing on Linux, BSD and other Unix-based operating systems. They&amp;rsquo;re also bread-and-butter tools for sysadmins. Can&amp;rsquo;t remember which config file a certain setting was in? grep for it. Someone wants to know how many requests the webserver served yesterday? wc to the rescue! And so on.</description>
+awk, together with grep, sed and fellows like tr, wc or cut are standard tools for command line text processing on Linux, BSD and other Unix-based operating systems. They&amp;rsquo;re also bread-and-butter tools for sysadmins. Can&amp;rsquo;t remember which config file a certain setting was in? grep for it. Someone wants to know how many requests the web server served yesterday? wc to the rescue!</description>
     </item>
     
     <item>

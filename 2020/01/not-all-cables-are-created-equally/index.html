@@ -38,30 +38,17 @@
 	<article class="post">
 		<h1><a href="https://klosterbruder.github.io/2020/01/not-all-cables-are-created-equally/">Not all cables are created equally</a> </h1>
 
-		<div class="post-content">
-
-<p>After a long time of planning, I finally ordered parts for a new PC last year. Black Friday seemed the best time to order, even though there were less deals than I&rsquo;d have wanted. While waiting for my orders to be shipped, I also found out the availability numbers in the shops were a bit overstated. That might be worth a rant for itself, but sometimes one should just let bygones be bygones.</p>
-
+		<div class="post-content"><p>After a long time of planning, I finally ordered parts for a new PC last year. Black Friday seemed the best time to order, even though there were less deals than I&rsquo;d have wanted. While waiting for my orders to be shipped, I also found out the availability numbers in the shops were a bit overstated. That might be worth a rant for itself, but sometimes one should just let bygones be bygones.</p>
 <h2 id="background">Background</h2>
-
 <p>A bit of background on how I want to use my PC.</p>
-
-<p>For several years now, my daily drivers were laptops, mostly with Linux. I like it, I love it, I prefer it to Windows in pretty much any way. But I also have an ever-growing game library I have woefully neglected during the recent years by burying myself in my job. Mainstream gaming and Linux have become much more compatible lately, with projects like <a href="https://github.com/lutris/lutris">Lutris</a> and Steams <a href="https://github.com/ValveSoftware/Proton">Proton</a> in addition to the tried and trusted <a href="https://www.winehq.org/">Wine</a>. But not all is fine and well &ndash; EA has <a href="https://linustechtips.com/main/topic/1141416-ea-is-banning-linux-gamers-in-battlefield-5/">reportedly</a> been banning players using Lutris to run Battlefield 5, there was some <a href="https://www.engadget.com/2019/06/22/steam-will-stop-supporting-ubuntu-linux/">brouhaha</a> regarding Canonicals plan to stop shipping 32 bit libraries which led to Valve announcing the discontinuation of official Ubuntu support in Steam, and so on.</p>
-
+<p>For several years now, my daily drivers were laptops, mostly with Linux. I like it, I love it, I prefer it to Windows in pretty much any way. But I also have an ever-growing game library I have woefully neglected during the recent years by burying myself in my job. Mainstream gaming and Linux have become much more compatible lately, with projects like <a href="https://github.com/lutris/lutris">Lutris</a> and Steams <a href="https://github.com/ValveSoftware/Proton">Proton</a> in addition to the tried and trusted <a href="https://www.winehq.org/">Wine</a>. But not all is fine and well &ndash; EA has <a href="https://linustechtips.com/main/topic/1141416-ea-is-banning-linux-gamers-in-battlefield-5/">reportedly</a> been banning players using Lutris to run Battlefield 5, there was some <a href="https://www.engadget.com/2019/06/22/steam-will-stop-supporting-ubuntu-linux/">brouhaha</a> regarding Canonicals' plan to stop shipping 32 bit libraries which led to Valve announcing the discontinuation of official Ubuntu support in Steam, and so on.</p>
 <p>Other areas of software &ndash; and most importantly, hardware &ndash; have shown rather spectacular advancements, too. I&rsquo;m talking about gaming in a virtual machine with passthrough of a graphics card into a VM. The technical details are a bit long and gory and other people have written whole essays on VFIO / PCIe-passthrough, so I will limit myself to saying that both CPU and chipset have to support it. Luckily, a good number of them do.</p>
-
-<p>Running Linux on the box itself and Windows in a VM for gaming will offer many great benefits, I imagine. I can use Linux for all my daily stuff and isolate it from Windows&rsquo; data-gathering tendencies. If Windows decides that it&rsquo;ll need an hour or two for updates, I can let it do just that in the background and continue to use Linux in the meantime. Couldn&rsquo;t do that on a dual-boot setup, right? And if Windows&rsquo; forced updates <a href="https://www.theregister.co.uk/2019/09/11/windows_cpu_cortana/">inevitably</a> <a href="https://www.theregister.co.uk/2019/04/24/windows_10_may_2019_update_block/">break</a> <a href="https://www.theregister.co.uk/2018/10/23/microsoft_windows_10_crisis/">something</a> <a href="https://www.techradar.com/news/another-microsoft-mess-as-windows-10-november-2019-update-breaks-file-explorer">again</a>, I&rsquo;ll be able to roll back to a previous snapshot of the VM disk. Hopefully. Maybe. Unless I forget to configure those snapshots.</p>
-
+<p>Running Linux on the box itself and Windows in a VM for gaming will offer many great benefits, I imagine. I can use Linux for all my daily stuff and isolate it from Windows' data-gathering tendencies. If Windows decides that it&rsquo;ll need an hour or two for updates, I can let it do just that in the background and continue to use Linux in the meantime. Couldn&rsquo;t do that on a dual-boot setup, right? And if Windows' forced updates <a href="https://www.theregister.co.uk/2019/09/11/windows_cpu_cortana/">inevitably</a> <a href="https://www.theregister.co.uk/2019/04/24/windows_10_may_2019_update_block/">break</a> <a href="https://www.theregister.co.uk/2018/10/23/microsoft_windows_10_crisis/">something</a> <a href="https://www.techradar.com/news/another-microsoft-mess-as-windows-10-november-2019-update-breaks-file-explorer">again</a>, I&rsquo;ll be able to roll back to a previous snapshot of the VM disk. Hopefully. Maybe. Unless I forget to configure those snapshots.</p>
 <p>Handing the dedicated graphics card to a VM means you either need a second one to run the host from, or a CPU with an integrated graphics processor. The monitor can be switched between both graphics outputs to display exactly whichever you want at the moment.</p>
-
 <h2 id="hardware">Hardware</h2>
-
-<p>For my hardware, I went with Intel / Nvidia. AMD has some problems with passthrough both with their <a href="https://community.amd.com/thread/241650">CPUs</a> (or rather the chipset firmware) as well as their <a href="https://passthroughpo.st/vfio-increments/">GPUs</a> (see &ldquo;Guest GPUs&rdquo;), even though they are an extremely interesting option otherwise. My brand of choice for server tech has been Supermicro for some time now, so it only seemed logical to look at SuperO, their gaming-focussed sub-brand. Benchmarks confirmed they&rsquo;d be a solid choice as well.</p>
-
+<p>For my hardware, I went with Intel / Nvidia. AMD has some problems with passthrough both with their <a href="https://community.amd.com/thread/241650">CPUs</a> (or rather the chipset firmware) as well as their <a href="https://passthroughpo.st/vfio-increments/">GPUs</a> (see &ldquo;Guest GPUs&rdquo;), even though they are an extremely interesting option otherwise. My brand of choice for server tech has been Supermicro for some time now, so it only seemed logical to look at SuperO, their gaming-focused sub-brand. Benchmarks confirmed they&rsquo;d be a solid choice as well.</p>
 <h3 id="mainboard">Mainboard</h3>
-
 <p>SuperO C9Z390-PGW:</p>
-
 <ul>
 <li>Socket 1151v2</li>
 <li>Z390 chipset</li>
@@ -72,79 +59,50 @@
 <li>USB 3.1, 3.0 etc.</li>
 <li>1x 10 GBit Ethernet (Aquantia), 1x 1 GBit Ethernet (Intel), 1x WiFi / Bluetooth (Intel)</li>
 </ul>
-
-<p>There are many reasons I choose that board. I mentioned my favoritism for Supermicro / SuperO as well as the positive benchmark results already. The second was the CPU support. That&rsquo;s actually what tipped the scales towards the -PGW instead of its smaller brothers. All C9Z390 support Intels 8th/9th Gen Core-i CPUs, but only the -PGW supports TDPs up to 140 watts. This was a must for my chosen CPU, and is also a plus for overclocking. I wouldn&rsquo;t really have needed the 10 GBit network port or the WiFi &ndash; I&rsquo;m not complaining about them either, though.</p>
-
-<p>One point I didn&rsquo;t espcially look for are the graphics outputs on the board. 3 ports are common, but it tends to be 1x HDMI, 1x DisplayPort and one other &ndash; either DVI or VGA. Really, VGA? 2005 called and wants its graphics connector back! The SuperO boards really stand out with HDMI and double DisplayPort among the Z390 crowd. Seeing that at some point in time I want to run 3 biggish monitors, this made me kinda happy.</p>
-
+<p>There are many reasons I choose that board. I mentioned my favoritism for Supermicro / SuperO as well as the positive benchmark results already. The second was the CPU support. That&rsquo;s actually what tipped the scales towards the -PGW instead of its smaller brothers. All C9Z390 support Intel&rsquo;s 8th/9th Gen Core-i CPUs, but only the -PGW supports TDPs up to 140 watts. This was a must for my chosen CPU, and is also a plus for overclocking. I wouldn&rsquo;t really have needed the 10 GBit network port or the WiFi &ndash; I&rsquo;m not complaining about them either, though.</p>
+<p>One point I didn&rsquo;t especially look for are the graphics outputs on the board. 3 ports are common, but it tends to be 1x HDMI, 1x DisplayPort and one other &ndash; either DVI or VGA. Really, VGA? 2005 called and wants its graphics connector back! The SuperO boards really stand out with HDMI and double DisplayPort among the Z390 crowd. Seeing that at some point in time I want to run 3 biggish monitors, this made me kinda happy.</p>
 <h3 id="cpu">CPU</h3>
-
 <p>Intel i9-9900KS:</p>
-
 <ul>
 <li>Socket 1151v2</li>
 <li>8 Cores, 16 Threads</li>
 <li>4 GHz base clock</li>
 <li>5 GHz boost clock</li>
 <li>Intel UHD 630 integrated graphics
-
 <ul>
 <li>up to 3 displays</li>
 <li>HDMI 1.4, 4096x2304@24Hz</li>
 <li>DisplayPort 4096x2304@60Hz</li>
-</ul></li>
 </ul>
-
-<p>The CPU is a monster. It&rsquo;s the special edition of the i9-9900K, which is a top of the line Intel CPU of its own. I thought that if i was to dump a big chunk of money into tech, I could just as well take the biggest and baddest chip outside the almost unreasonably expensive HEDT lineup (Socket 2066), which is also still stuck on the X299 chipset, first released in 2017. They also lack an integrated GPU, so I would have had to fork over another wad of cash for a second graphics card. How about no? 16 &ldquo;cores&rdquo; are more than enough for my endeavors anyways.</p>
-
+</li>
+</ul>
+<p>The CPU is a monster. It&rsquo;s the special edition of the i9-9900K, which is a top of the line Intel CPU of its own. I thought that if I was to dump a big chunk of money into tech, I could just as well take the biggest and baddest chip outside the almost unreasonably expensive HEDT lineup (Socket 2066), which is also still stuck on the X299 chipset, first released in 2017. They also lack an integrated GPU, so I would have had to fork over another wad of cash for a second graphics card. How about no? 16 &ldquo;cores&rdquo; are more than enough for my endeavors anyways.</p>
 <p>Sporting a TDP of 127 watts, the CPU is too beefy for a lot of boards. I briefly mentioned that the -PGW supports this. Its smaller siblings only support up to 120 watts. How often, if ever, I will be exhausting this limit is still questionable, but I&rsquo;m not taking any chances.</p>
-
 <h3 id="gpu">GPU</h3>
-
 <p>KFA2 GeForce RTX 2070 Super EX:</p>
-
 <ul>
 <li>RTX Cores (ray tracing)</li>
 <li>3x DisplayPort</li>
 <li>1x HDMI</li>
 </ul>
-
 <p>Not much to say here, I guess. Roughly half the price of a 2080 Ti and offering a bit more than half of the performance seemed like a pretty sweet spot for me. The benchmarks looked great, and my current reference point is a GeForce 740M, so I&rsquo;m not going to be disappointed anyways.</p>
-
 <h3 id="monitors">Monitors</h3>
-
-<p>Since the box tore quite the hole into my savings, I put buying suitable monitors off till next year. Or the one after that, who knows. This means I&rsquo;ll be using my old ones &ndash; they still do a great job anyways. One of them is an LG 22&rdquo; 1920x1080, with HDMI, DVI and VGA ports. The other is a fancy random chinese 13.3&rdquo; 2560x1440 with a Mini-HDMI port. An astute reader might have realized none of them features a DisplayPort, so I got myself some adaptor cables.</p>
-
+<p>Since the box tore quite the hole into my savings, I put buying suitable monitors off till next year. Or the one after that, who knows. This means I&rsquo;ll be using my old ones &ndash; they still do a great job anyways. One of them is an LG 22&quot; 1920x1080, with HDMI, DVI and VGA ports. The other is a fancy random chinese 13.3&quot; 2560x1440 with a Mini-HDMI port. An astute reader might have realized none of them features a DisplayPort, so I got myself some adaptor cables.</p>
 <h2 id="the-problem">The problem</h2>
-
-<p>After finally receiving the last parcel, I started putting it all together. Boy, did computer parts become huge since I last build a PC. But barely, just like that, I got them all into my case (also repurposed from an earlier projct to cut costs). First, I left out the Nvidia card. Most BIOSes are configured to disable the integrated GPU if a dedicated one is detected. Checking where to prevent that was my first mission, the second was to check whether or not I had smashed the CPU when I seated the cooler.</p>
-
-<p>So I took my trusty LG monitor, connected it to the HDMI port and turned on the box. It was marvellous, a monster I had cobbled together coming to life for the first time. The next step was to connect both monitors and plug in an USB stick with Linux for the installation. I switched my LG over to one of the DisplayPorts and put my small monitor on the HDMI. I turned it on again, and&hellip;only got output on the small monitor.</p>
-
+<p>After finally receiving the last parcel, I started putting it all together. Boy, did computer parts become huge since I last build a PC. But barely, just like that, I got them all into my case (also repurposed from an earlier project to cut costs). First, I left out the Nvidia card. Most BIOSes are configured to disable the integrated GPU if a dedicated one is detected. Checking where to prevent that was my first mission, the second was to check whether or not I had smashed the CPU when I seated the cooler.</p>
+<p>So I took my trusty LG monitor, connected it to the HDMI port and turned on the box. It was marvelous, a monster I had cobbled together coming to life for the first time. The next step was to connect both monitors and plug in an USB stick with Linux for the installation. I switched my LG over to one of the DisplayPorts and put my small monitor on the HDMI. I turned it on again, and&hellip;only got output on the small monitor.</p>
 <p>Whuh? Surely, there was a mistake somewhere, right? I swapped cables. I switched from DP-&gt;HDMI to DP-&gt;DVI. I plugged my small monitor onto the DisplayPorts. Noep, no dice.</p>
-
 <p>The cables! But &ndash; could all of the 4 cables be defective?</p>
-
 <p>I plugged in the Nvidia card. Since I hadn&rsquo;t changed anything regarding graphics card detection in the BIOS, it became the main output without a hitch. And it did output &ndash; on all ports. Over the adaptor cables as well. To both monitors.</p>
-
 <p>Next, I whipped together a quick baremetal Windows installation. Maybe that could help? Unfortunately, no. The board came with a driver CD! After installing all of the drivers, the onboard DisplayPorts still stayed black.</p>
-
 <p>A quick internet search had turned up &ldquo;improperly seated cables&rdquo;, &ldquo;disabled iGPU&rdquo; and &ldquo;disabled DisplayPort&rdquo; as potential issues, so my next stop was the BIOS again. I fiddled with everything related to the graphics. on, off, force-on, bigger iGPU ram &ndash; almost anything not related to voltages and clock frequencies. I also restored the defaults multiple times. Double-checking whether or not the cables were properly plugged in was done after every single change, too. But alas, the screen stayed black.</p>
-
 <p>Slowly but surely I was losing heart. The cables worked on the Nvidia, the onboard HDMI worked so the iGPU worked as well, the monitors worked, so where exactly was the problem?! Were both DisplayPorts on the board really broken? That would&rsquo;ve meant a whole bunch of RMA troubles. Should I give it up and run with only one monitor in Linux, after finally having gotten used to a dual-screen setup? Should I maybe bin my gaming VM plans and return to a normal dual-boot setup? Or forgo gaming altogether?</p>
-
-<p>I inquired with friends and coworkers, but no fruitful solutions emerged. In fact, they agreed with my assumptions that all parts individually worked, and that a cable is a cable, no matter what. On coworker agreed to test my cables on his box, which only had an iGPU, and in turn he lent me his spare adaptor cables that definitely worked in his setup. His adaptors didn&rsquo;t work on my box, while my cables worked on his&rsquo;.</p>
-
+<p>I inquired with friends and coworkers, but no fruitful solutions emerged. In fact, they agreed with my assumptions that all parts individually worked, and that a cable is a cable, no matter what. One coworker agreed to test my cables on his box, which only had an iGPU, and in turn he lent me his spare adaptor cables that definitely worked in his setup. His adaptors didn&rsquo;t work on my box, while my cables worked on his'.</p>
 <h2 id="the-solution">The solution</h2>
-
-<p>Late at night, after a fruitless inquiry on a webpage, I was bombarding my not-favorite search engine with keywords that might yield answers to my problem. In an unexpected way, it worked.</p>
-
+<p>Late at night, after a fruitless inquiry on a web page, I was bombarding my not-favorite search engine with keywords that might yield answers to my problem. In an unexpected way, it worked.</p>
 <p>First, I stumbled about <strong>active</strong> DisplayPort to HDMI adaptors. My cables were made by Rankie. <strong>Active</strong> was mentioned exactly zero times in their description, and since active ones started at twice their price, I surmised they were not. Then, I read about DP++, also called dual-mode DisplayPort. This allows for the transmission of, for example, HDMI signals over DisplayPort without requiring an active adaptor. But this supposedly is supported by virtually all devices. Could this actually be the solution? Being at my wits end, I ordered an active adaptor, made by Plugable. Their products are also VESA-certified. Lo and behold &ndash; IT WORKS!</p>
-
 <p>I don&rsquo;t know if the iGPU did not output DP++ signals or if the onboard ports somehow didn&rsquo;t transmit DP++ signals, but either way, an active adaptor fixed it. The state of support of this is not really documented anywhere, though.</p>
-
 <p>Lessons learned:</p>
-
 <ul>
 <li>Buying cheap may mean buying twice.</li>
 <li>A cable is just a cable, unless it&rsquo;s not.</li>
