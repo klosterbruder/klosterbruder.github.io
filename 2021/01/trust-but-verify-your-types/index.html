@@ -1,0 +1,219 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<title>Trust, but verify (your types)</title>
+		<meta name="viewport" content="width=device-width">
+		
+		<link rel="stylesheet" href="https://klosterbruder.github.io/css/hybrid.css">
+		<link rel="stylesheet" href="https://klosterbruder.github.io/css/style.css">
+		<link rel="stylesheet" href="https://klosterbruder.github.io/css/colors-dark.css">
+
+		
+	</head>
+	<body>
+		<header id="header">
+			<h1><a href="https://klosterbruder.github.io/">klosterbruders tech rants</a></h1>
+			<p>Have you tried turning it off and on again?</p>
+		</header>
+
+		<div id="page">
+			<div id="sidebar">
+				<nav>
+	
+		<ul class="nav">
+			
+				<li><a href="/index.xml"><span>Feed</span></a></li>
+			
+				<li><a href="https://github.com/klosterbruder/"><span>Github</span></a></li>
+			
+		</ul>
+	
+</nav>
+
+			</div>
+
+			<div id="content">
+				
+	<article class="post">
+		<h1><a href="https://klosterbruder.github.io/2021/01/trust-but-verify-your-types/">Trust, but verify (your types)</a> </h1>
+
+		<div class="post-content"><p>I&rsquo;m running my virtual machines with QEMU/KVM on Linux. Management is done via Libvirt, which can take care of a few things automatically, and it also beats juggling mile-long command lines to start them. Instead, you&rsquo;ve got an XML definition of the machine, which you can dump, restore, put under version control and so on.</p>
+<p>Libvirt also has something called hooks, which allow it to execute arbitrary commands or actions during various phases of the startup and shutdown procedures of a VM. A full overview can be found <a href="https://libvirt.org/hooks.html">here</a>. The gist is that you put a small program in <code>/etc/libvirt/hooks/</code> for whichever hypervisor you&rsquo;re using, so in my case <code>qemu</code>. I wrote program, but it can basically be anything that&rsquo;s executable, Shell script, Python, compiled C++, Go, and I&rsquo;m sure the more adventurous minds would even have success with Jave or NodeJS.</p>
+<p>My file system of choice is ZFS, and one of its great features are snapshots. So, what does that have to do with Libvirt? Use its hooks to take a snapshot whenever a machine is started or shut down! Because you never know when an Oopsie (read: failed Windows Update) might render your VM unusable, necessitating a reinstall in the absence of a backup or snapshot.</p>
+<p>And where does Perl come in, now? Glad you asked! I&rsquo;m not a programming kind of guy, even though I know a few languages well enough to be able to copy-paste together Stackoverflow answers for solving my problem at hand. Can&rsquo;t really help it, most tasks I face can be solved with a concatenation of shell tools, which may or may not be longer than four on-screen lines in the terminal. In some cases, sticking to shell tools makes things a bit complex. Taking snapshots of all disks of a VM is, in my opinion, such a case, since it involves parsing an XML data structure. And in cases like this, I feel myself drawn to Perl, since it still feels a bit like the shell tools I&rsquo;m used to, but it is incredibly powerful in handling more complex tasks and has a rich collection of modules to deal with almost anything you would ever want to deal with - such as XML. Oh, and it has curly braces, which is a definitive advantage over Python.</p>
+<p>The XML definition of the VM currently managed is provided to the hook executable via <code>stdin</code>, the current phase (startup, shutdown, etc.) is given as command line parameters. Parsing the XML with the <a href="https://metacpan.org/pod/XML::Simple">XML::Simple</a> may not be the best way, but it is exactly that - simple. It turns the whole document into a single Perl data structure, through which you can navigate in typical Perl fashion with <code>$xml-&gt;a-&gt;b-&gt;c</code>.</p>
+<p>This is an XML excerpt concerning the disks of my Windows VM.</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-xml" data-lang="xml"><span style="color:#f92672">&lt;domain</span> <span style="color:#a6e22e">type=</span><span style="color:#e6db74">&#39;kvm&#39;</span> <span style="color:#a6e22e">xmlns:qemu=</span><span style="color:#e6db74">&#39;http://libvirt.org/schemas/domain/qemu/1.0&#39;</span><span style="color:#f92672">&gt;</span>
+  <span style="color:#75715e">&lt;!-- omitted --&gt;</span>
+  <span style="color:#f92672">&lt;devices&gt;</span>
+    <span style="color:#f92672">&lt;disk</span> <span style="color:#a6e22e">type=</span><span style="color:#e6db74">&#39;file&#39;</span> <span style="color:#a6e22e">device=</span><span style="color:#e6db74">&#39;disk&#39;</span><span style="color:#f92672">&gt;</span>
+      <span style="color:#f92672">&lt;driver</span> <span style="color:#a6e22e">name=</span><span style="color:#e6db74">&#39;qemu&#39;</span> <span style="color:#a6e22e">type=</span><span style="color:#e6db74">&#39;qcow2&#39;</span><span style="color:#f92672">/&gt;</span>
+      <span style="color:#f92672">&lt;source</span> <span style="color:#a6e22e">file=</span><span style="color:#e6db74">&#39;/home/vm/windows/drive_c.qcow2&#39;</span><span style="color:#f92672">/&gt;</span>
+      <span style="color:#f92672">&lt;target</span> <span style="color:#a6e22e">dev=</span><span style="color:#e6db74">&#39;vda&#39;</span> <span style="color:#a6e22e">bus=</span><span style="color:#e6db74">&#39;virtio&#39;</span><span style="color:#f92672">/&gt;</span>
+      <span style="color:#f92672">&lt;boot</span> <span style="color:#a6e22e">order=</span><span style="color:#e6db74">&#39;1&#39;</span><span style="color:#f92672">/&gt;</span>
+      <span style="color:#f92672">&lt;address</span> <span style="color:#a6e22e">type=</span><span style="color:#e6db74">&#39;pci&#39;</span> <span style="color:#a6e22e">domain=</span><span style="color:#e6db74">&#39;0x0000&#39;</span> <span style="color:#a6e22e">bus=</span><span style="color:#e6db74">&#39;0x04&#39;</span> <span style="color:#a6e22e">slot=</span><span style="color:#e6db74">&#39;0x00&#39;</span> <span style="color:#a6e22e">function=</span><span style="color:#e6db74">&#39;0x0&#39;</span><span style="color:#f92672">/&gt;</span>
+    <span style="color:#f92672">&lt;/disk&gt;</span>
+    <span style="color:#f92672">&lt;disk</span> <span style="color:#a6e22e">type=</span><span style="color:#e6db74">&#39;file&#39;</span> <span style="color:#a6e22e">device=</span><span style="color:#e6db74">&#39;disk&#39;</span><span style="color:#f92672">&gt;</span>
+      <span style="color:#f92672">&lt;driver</span> <span style="color:#a6e22e">name=</span><span style="color:#e6db74">&#39;qemu&#39;</span> <span style="color:#a6e22e">type=</span><span style="color:#e6db74">&#39;qcow2&#39;</span><span style="color:#f92672">/&gt;</span>
+      <span style="color:#f92672">&lt;source</span> <span style="color:#a6e22e">file=</span><span style="color:#e6db74">&#39;/home/vm/windows/drive_d.qcow2&#39;</span><span style="color:#f92672">/&gt;</span>
+      <span style="color:#f92672">&lt;target</span> <span style="color:#a6e22e">dev=</span><span style="color:#e6db74">&#39;vdb&#39;</span> <span style="color:#a6e22e">bus=</span><span style="color:#e6db74">&#39;virtio&#39;</span><span style="color:#f92672">/&gt;</span>
+      <span style="color:#f92672">&lt;address</span> <span style="color:#a6e22e">type=</span><span style="color:#e6db74">&#39;pci&#39;</span> <span style="color:#a6e22e">domain=</span><span style="color:#e6db74">&#39;0x0000&#39;</span> <span style="color:#a6e22e">bus=</span><span style="color:#e6db74">&#39;0x0b&#39;</span> <span style="color:#a6e22e">slot=</span><span style="color:#e6db74">&#39;0x00&#39;</span> <span style="color:#a6e22e">function=</span><span style="color:#e6db74">&#39;0x0&#39;</span><span style="color:#f92672">/&gt;</span>
+    <span style="color:#f92672">&lt;/disk&gt;</span>
+    <span style="color:#f92672">&lt;disk</span> <span style="color:#a6e22e">type=</span><span style="color:#e6db74">&#39;file&#39;</span> <span style="color:#a6e22e">device=</span><span style="color:#e6db74">&#39;cdrom&#39;</span><span style="color:#f92672">&gt;</span>
+      <span style="color:#f92672">&lt;driver</span> <span style="color:#a6e22e">name=</span><span style="color:#e6db74">&#39;qemu&#39;</span> <span style="color:#a6e22e">type=</span><span style="color:#e6db74">&#39;raw&#39;</span><span style="color:#f92672">/&gt;</span>
+      <span style="color:#f92672">&lt;target</span> <span style="color:#a6e22e">dev=</span><span style="color:#e6db74">&#39;sda&#39;</span> <span style="color:#a6e22e">bus=</span><span style="color:#e6db74">&#39;sata&#39;</span><span style="color:#f92672">/&gt;</span>
+      <span style="color:#f92672">&lt;readonly/&gt;</span>
+      <span style="color:#f92672">&lt;boot</span> <span style="color:#a6e22e">order=</span><span style="color:#e6db74">&#39;2&#39;</span><span style="color:#f92672">/&gt;</span>
+      <span style="color:#f92672">&lt;address</span> <span style="color:#a6e22e">type=</span><span style="color:#e6db74">&#39;drive&#39;</span> <span style="color:#a6e22e">controller=</span><span style="color:#e6db74">&#39;0&#39;</span> <span style="color:#a6e22e">bus=</span><span style="color:#e6db74">&#39;0&#39;</span> <span style="color:#a6e22e">target=</span><span style="color:#e6db74">&#39;0&#39;</span> <span style="color:#a6e22e">unit=</span><span style="color:#e6db74">&#39;0&#39;</span><span style="color:#f92672">/&gt;</span>
+    <span style="color:#f92672">&lt;/disk&gt;</span>
+  <span style="color:#75715e">&lt;!-- omitted --&gt;</span>
+  <span style="color:#f92672">&lt;/devices&gt;</span>
+<span style="color:#f92672">&lt;/domain&gt;</span>
+</code></pre></div><p>XML::Simple turns this into a nice and long tree, that can be inspected with the trusty <a href="https://metacpan.org/pod/Data::Dumper">Data::Dumper</a>, to decide which path to take or to check you got the right subset. I just need the disks, so <code>$xml-&gt;{devices}-&gt;{disk}</code> is the data path to take, yielding the tree below.</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-perl" data-lang="perl">$VAR1 <span style="color:#f92672">=</span> [
+	{
+		<span style="color:#e6db74">&#39;type&#39;</span> <span style="color:#f92672">=&gt;</span> <span style="color:#e6db74">&#39;file&#39;</span>,
+		<span style="color:#e6db74">&#39;device&#39;</span> <span style="color:#f92672">=&gt;</span> <span style="color:#e6db74">&#39;disk&#39;</span>,
+		<span style="color:#e6db74">&#39;driver&#39;</span> <span style="color:#f92672">=&gt;</span> {
+			<span style="color:#e6db74">&#39;type&#39;</span> <span style="color:#f92672">=&gt;</span> <span style="color:#e6db74">&#39;qcow2&#39;</span>,
+			<span style="color:#e6db74">&#39;name&#39;</span> <span style="color:#f92672">=&gt;</span> <span style="color:#e6db74">&#39;qemu&#39;</span>
+		},
+		<span style="color:#e6db74">&#39;source&#39;</span> <span style="color:#f92672">=&gt;</span> {
+			<span style="color:#e6db74">&#39;file&#39;</span> <span style="color:#f92672">=&gt;</span> <span style="color:#e6db74">&#39;/home/vm/windows/drive_c.qcow2&#39;</span>
+		},
+		<span style="color:#e6db74">&#39;target&#39;</span> <span style="color:#f92672">=&gt;</span> {
+			<span style="color:#e6db74">&#39;bus&#39;</span> <span style="color:#f92672">=&gt;</span> <span style="color:#e6db74">&#39;virtio&#39;</span>,
+			<span style="color:#e6db74">&#39;dev&#39;</span> <span style="color:#f92672">=&gt;</span> <span style="color:#e6db74">&#39;vda&#39;</span>
+		},
+		<span style="color:#e6db74">&#39;boot&#39;</span> <span style="color:#f92672">=&gt;</span> {
+			<span style="color:#e6db74">&#39;order&#39;</span> <span style="color:#f92672">=&gt;</span> <span style="color:#e6db74">&#39;1&#39;</span>
+		},
+		<span style="color:#e6db74">&#39;address&#39;</span> <span style="color:#f92672">=&gt;</span> {
+			<span style="color:#e6db74">&#39;domain&#39;</span> <span style="color:#f92672">=&gt;</span> <span style="color:#e6db74">&#39;0x0000&#39;</span>,
+			<span style="color:#e6db74">&#39;type&#39;</span> <span style="color:#f92672">=&gt;</span> <span style="color:#e6db74">&#39;pci&#39;</span>,
+			<span style="color:#e6db74">&#39;function&#39;</span> <span style="color:#f92672">=&gt;</span> <span style="color:#e6db74">&#39;0x0&#39;</span>,
+			<span style="color:#e6db74">&#39;slot&#39;</span> <span style="color:#f92672">=&gt;</span> <span style="color:#e6db74">&#39;0x00&#39;</span>,
+			<span style="color:#e6db74">&#39;bus&#39;</span> <span style="color:#f92672">=&gt;</span> <span style="color:#e6db74">&#39;0x04&#39;</span>
+		}
+	},
+	{
+		<span style="color:#e6db74">&#39;type&#39;</span> <span style="color:#f92672">=&gt;</span> <span style="color:#e6db74">&#39;file&#39;</span>,
+		<span style="color:#e6db74">&#39;device&#39;</span> <span style="color:#f92672">=&gt;</span> <span style="color:#e6db74">&#39;disk&#39;</span>,
+		<span style="color:#e6db74">&#39;driver&#39;</span> <span style="color:#f92672">=&gt;</span> {
+			<span style="color:#e6db74">&#39;name&#39;</span> <span style="color:#f92672">=&gt;</span> <span style="color:#e6db74">&#39;qemu&#39;</span>,
+			<span style="color:#e6db74">&#39;type&#39;</span> <span style="color:#f92672">=&gt;</span> <span style="color:#e6db74">&#39;qcow2&#39;</span>
+		},
+		<span style="color:#e6db74">&#39;source&#39;</span> <span style="color:#f92672">=&gt;</span> {
+			<span style="color:#e6db74">&#39;file&#39;</span> <span style="color:#f92672">=&gt;</span> <span style="color:#e6db74">&#39;/home/vm/windows/drive_d.qcow2&#39;</span>
+		},
+		<span style="color:#e6db74">&#39;target&#39;</span> <span style="color:#f92672">=&gt;</span> {
+			<span style="color:#e6db74">&#39;bus&#39;</span> <span style="color:#f92672">=&gt;</span> <span style="color:#e6db74">&#39;virtio&#39;</span>,
+			<span style="color:#e6db74">&#39;dev&#39;</span> <span style="color:#f92672">=&gt;</span> <span style="color:#e6db74">&#39;vdb&#39;</span>
+		},
+		<span style="color:#e6db74">&#39;address&#39;</span> <span style="color:#f92672">=&gt;</span> {
+			<span style="color:#e6db74">&#39;bus&#39;</span> <span style="color:#f92672">=&gt;</span> <span style="color:#e6db74">&#39;0x0b&#39;</span>,
+			<span style="color:#e6db74">&#39;slot&#39;</span> <span style="color:#f92672">=&gt;</span> <span style="color:#e6db74">&#39;0x00&#39;</span>,
+			<span style="color:#e6db74">&#39;function&#39;</span> <span style="color:#f92672">=&gt;</span> <span style="color:#e6db74">&#39;0x0&#39;</span>,
+			<span style="color:#e6db74">&#39;type&#39;</span> <span style="color:#f92672">=&gt;</span> <span style="color:#e6db74">&#39;pci&#39;</span>,
+			<span style="color:#e6db74">&#39;domain&#39;</span> <span style="color:#f92672">=&gt;</span> <span style="color:#e6db74">&#39;0x0000&#39;</span>
+		}
+	},
+	{
+		<span style="color:#e6db74">&#39;type&#39;</span> <span style="color:#f92672">=&gt;</span> <span style="color:#e6db74">&#39;file&#39;</span>,
+		<span style="color:#e6db74">&#39;device&#39;</span> <span style="color:#f92672">=&gt;</span> <span style="color:#e6db74">&#39;cdrom&#39;</span>,
+		<span style="color:#e6db74">&#39;driver&#39;</span> <span style="color:#f92672">=&gt;</span> {
+			<span style="color:#e6db74">&#39;type&#39;</span> <span style="color:#f92672">=&gt;</span> <span style="color:#e6db74">&#39;raw&#39;</span>,
+			<span style="color:#e6db74">&#39;name&#39;</span> <span style="color:#f92672">=&gt;</span> <span style="color:#e6db74">&#39;qemu&#39;</span>
+		},
+		<span style="color:#e6db74">&#39;target&#39;</span> <span style="color:#f92672">=&gt;</span> {
+			<span style="color:#e6db74">&#39;bus&#39;</span> <span style="color:#f92672">=&gt;</span> <span style="color:#e6db74">&#39;sata&#39;</span>,
+			<span style="color:#e6db74">&#39;dev&#39;</span> <span style="color:#f92672">=&gt;</span> <span style="color:#e6db74">&#39;sda&#39;</span>
+		},
+		<span style="color:#e6db74">&#39;readonly&#39;</span> <span style="color:#f92672">=&gt;</span> {},
+		<span style="color:#e6db74">&#39;boot&#39;</span> <span style="color:#f92672">=&gt;</span> {
+			<span style="color:#e6db74">&#39;order&#39;</span> <span style="color:#f92672">=&gt;</span> <span style="color:#e6db74">&#39;2&#39;</span>
+		},
+		<span style="color:#e6db74">&#39;address&#39;</span> <span style="color:#f92672">=&gt;</span> {
+			<span style="color:#e6db74">&#39;type&#39;</span> <span style="color:#f92672">=&gt;</span> <span style="color:#e6db74">&#39;drive&#39;</span>,
+			<span style="color:#e6db74">&#39;controller&#39;</span> <span style="color:#f92672">=&gt;</span> <span style="color:#e6db74">&#39;0&#39;</span>,
+			<span style="color:#e6db74">&#39;bus&#39;</span> <span style="color:#f92672">=&gt;</span> <span style="color:#e6db74">&#39;0&#39;</span>,
+			<span style="color:#e6db74">&#39;target&#39;</span> <span style="color:#f92672">=&gt;</span> <span style="color:#e6db74">&#39;0&#39;</span>,
+			<span style="color:#e6db74">&#39;unit&#39;</span> <span style="color:#f92672">=&gt;</span> <span style="color:#e6db74">&#39;0&#39;</span>
+		}
+	}
+];
+</code></pre></div><p>The next steps are easy enough. Iterate over this array - after telling Perl to treat this as an array in the first place - grab the <code>{source}-&gt;{file}</code>s where <code>{device}</code> is a <code>disk</code> (<code>cdrom</code>s don&rsquo;t change and don&rsquo;t need snapshots), check if the files are really on ZFS and then take snapshots of all relevant datasets, if multiple ones are involved. Just like this:</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-perl" data-lang="perl"><span style="color:#66d9ef">foreach</span> <span style="color:#66d9ef">my</span> $device ( @{$xml<span style="color:#f92672">-&gt;</span>{devices}<span style="color:#f92672">-&gt;</span>{disk}} ) {
+	<span style="color:#75715e"># stuff</span>
+}
+</code></pre></div><p>Nice, easy, works.</p>
+<p>&hellip;mostly.</p>
+<p>Mostly? Well&hellip;consider the following. An excerpt like above, but for a VM containing only a CD drive.</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-xml" data-lang="xml"><span style="color:#f92672">&lt;domain</span> <span style="color:#a6e22e">type=</span><span style="color:#e6db74">&#39;kvm&#39;</span> <span style="color:#a6e22e">xmlns:qemu=</span><span style="color:#e6db74">&#39;http://libvirt.org/schemas/domain/qemu/1.0&#39;</span><span style="color:#f92672">&gt;</span>
+  <span style="color:#75715e">&lt;!-- omitted --&gt;</span>
+  <span style="color:#f92672">&lt;devices&gt;</span>
+    <span style="color:#f92672">&lt;disk</span> <span style="color:#a6e22e">type=</span><span style="color:#e6db74">&#39;file&#39;</span> <span style="color:#a6e22e">device=</span><span style="color:#e6db74">&#39;cdrom&#39;</span><span style="color:#f92672">&gt;</span>
+      <span style="color:#f92672">&lt;driver</span> <span style="color:#a6e22e">name=</span><span style="color:#e6db74">&#39;qemu&#39;</span> <span style="color:#a6e22e">type=</span><span style="color:#e6db74">&#39;raw&#39;</span><span style="color:#f92672">/&gt;</span>
+      <span style="color:#f92672">&lt;source</span> <span style="color:#a6e22e">file=</span><span style="color:#e6db74">&#39;/home/vm/iso/admincd-amd64-20200823T214503Z.iso&#39;</span><span style="color:#f92672">/&gt;</span>
+      <span style="color:#f92672">&lt;target</span> <span style="color:#a6e22e">dev=</span><span style="color:#e6db74">&#39;sda&#39;</span> <span style="color:#a6e22e">bus=</span><span style="color:#e6db74">&#39;sata&#39;</span><span style="color:#f92672">/&gt;</span>
+      <span style="color:#f92672">&lt;readonly/&gt;</span>
+      <span style="color:#f92672">&lt;address</span> <span style="color:#a6e22e">type=</span><span style="color:#e6db74">&#39;drive&#39;</span> <span style="color:#a6e22e">controller=</span><span style="color:#e6db74">&#39;0&#39;</span> <span style="color:#a6e22e">bus=</span><span style="color:#e6db74">&#39;0&#39;</span> <span style="color:#a6e22e">target=</span><span style="color:#e6db74">&#39;0&#39;</span> <span style="color:#a6e22e">unit=</span><span style="color:#e6db74">&#39;0&#39;</span><span style="color:#f92672">/&gt;</span>
+    <span style="color:#f92672">&lt;/disk&gt;</span>
+  <span style="color:#75715e">&lt;!-- omitted --&gt;</span>
+  <span style="color:#f92672">&lt;/devices&gt;</span>
+<span style="color:#f92672">&lt;/domain&gt;</span>
+</code></pre></div><p>As with the previous excerpt, inspecting what the XML parser does with it is this.</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-perl" data-lang="perl">$VAR1 <span style="color:#f92672">=</span> {
+	<span style="color:#e6db74">&#39;type&#39;</span> <span style="color:#f92672">=&gt;</span> <span style="color:#e6db74">&#39;file&#39;</span>,
+	<span style="color:#e6db74">&#39;device&#39;</span> <span style="color:#f92672">=&gt;</span> <span style="color:#e6db74">&#39;cdrom&#39;</span>,
+	<span style="color:#e6db74">&#39;driver&#39;</span> <span style="color:#f92672">=&gt;</span> {
+		<span style="color:#e6db74">&#39;type&#39;</span> <span style="color:#f92672">=&gt;</span> <span style="color:#e6db74">&#39;raw&#39;</span>,
+		<span style="color:#e6db74">&#39;name&#39;</span> <span style="color:#f92672">=&gt;</span> <span style="color:#e6db74">&#39;qemu&#39;</span>
+	},
+	<span style="color:#e6db74">&#39;source&#39;</span> <span style="color:#f92672">=&gt;</span> {
+		<span style="color:#e6db74">&#39;file&#39;</span> <span style="color:#f92672">=&gt;</span> <span style="color:#e6db74">&#39;/home/vm/iso/admincd-amd64-20200823T214503Z.iso&#39;</span>
+	},
+	<span style="color:#e6db74">&#39;target&#39;</span> <span style="color:#f92672">=&gt;</span> {
+		<span style="color:#e6db74">&#39;bus&#39;</span> <span style="color:#f92672">=&gt;</span> <span style="color:#e6db74">&#39;sata&#39;</span>,
+		<span style="color:#e6db74">&#39;dev&#39;</span> <span style="color:#f92672">=&gt;</span> <span style="color:#e6db74">&#39;sda&#39;</span>
+	},
+	<span style="color:#e6db74">&#39;readonly&#39;</span> <span style="color:#f92672">=&gt;</span> {},
+	<span style="color:#e6db74">&#39;address&#39;</span> <span style="color:#f92672">=&gt;</span> {
+		<span style="color:#e6db74">&#39;bus&#39;</span> <span style="color:#f92672">=&gt;</span> <span style="color:#e6db74">&#39;0&#39;</span>,
+		<span style="color:#e6db74">&#39;type&#39;</span> <span style="color:#f92672">=&gt;</span> <span style="color:#e6db74">&#39;drive&#39;</span>,
+		<span style="color:#e6db74">&#39;unit&#39;</span> <span style="color:#f92672">=&gt;</span> <span style="color:#e6db74">&#39;0&#39;</span>,
+		<span style="color:#e6db74">&#39;target&#39;</span> <span style="color:#f92672">=&gt;</span> <span style="color:#e6db74">&#39;0&#39;</span>,
+		<span style="color:#e6db74">&#39;controller&#39;</span> <span style="color:#f92672">=&gt;</span> <span style="color:#e6db74">&#39;0&#39;</span>
+	}
+};
+</code></pre></div><p>The difference is small, inconspicuous but important. The aforementioned access loop unceremoniously dies with <code>Not an ARRAY reference</code>.</p>
+<p>In the first VM, we had multiple disks, and thus multiple <code>&lt;disk&gt;</code> elements in the VM definition XML. The XML::Simple module turned this into an array (reference), so you can easily iterate over all disks. This can be seen by the <code>Dumper</code> output being enclosed by <code>[]</code>. The second one has only one disk, and therefore XML::Simple doesn&rsquo;t make an array out of it. So it is only enclosed by <code>{}</code>. In hindsight, this is understandable, because having single-element arrays everywhere would make things complex and possibly awkward to use.</p>
+<p>Therefore this isn&rsquo;t a rant about XML::Simple or how it does things, but more of a mental reminder to myself - and anyone else who needs it - that broad assumptions about kind, type and structure of data you&rsquo;re dealing with can be wrong and bite you at unexpected times.</p>
+<p>P.S.</p>
+<p>The solution isn&rsquo;t hard either, just check if the reference you&rsquo;re dealing with is actually an array reference, and only use it as an array if it is. But why think about issues like this when you can also blankly stare at your screen wondering what went wrong, when it does, right?</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-perl" data-lang="perl"><span style="color:#66d9ef">if</span> ( ref( $xml<span style="color:#f92672">-&gt;</span>{devices}<span style="color:#f92672">-&gt;</span>{disk} ) <span style="color:#f92672">eq</span> <span style="color:#e6db74">&#39;ARRAY&#39;</span> ) {
+	<span style="color:#75715e"># we array now</span>
+} <span style="color:#66d9ef">else</span> {
+	<span style="color:#75715e"># scalar all the way</span>
+}
+</code></pre></div></div>
+
+		<p class="meta">Posted on <span class="postdate">17. January 2021</span></p>
+	</article>
+
+			</div>
+
+			<footer id="footer">
+				<p class="copyright">
+					
+						Powered by <a href="https://gohugo.io/">Hugo</a> and the
+						<a href="https://github.com/bake/solar-theme-hugo">Solar</a>-theme.
+					
+				</p>
+			</footer>
+		</div>
+
+		
+	</body>
+</html>

@@ -3,6 +3,76 @@
   xmlns:xhtml="http://www.w3.org/1999/xhtml">
   
   <url>
+    <loc>https://klosterbruder.github.io/categories/</loc>
+    <lastmod>2021-02-18T20:56:31+01:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://klosterbruder.github.io/tags/debian/</loc>
+    <lastmod>2021-02-18T20:56:31+01:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://klosterbruder.github.io/tags/elasticsearch/</loc>
+    <lastmod>2021-02-18T20:56:31+01:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://klosterbruder.github.io/2021/02/its-a-repo-or-is-it/</loc>
+    <lastmod>2021-02-18T20:56:31+01:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://klosterbruder.github.io/</loc>
+    <lastmod>2021-02-18T20:56:31+01:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://klosterbruder.github.io/posts/</loc>
+    <lastmod>2021-02-18T20:56:31+01:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://klosterbruder.github.io/tags/rant/</loc>
+    <lastmod>2021-02-18T20:56:31+01:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://klosterbruder.github.io/categories/software/</loc>
+    <lastmod>2021-02-18T20:56:31+01:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://klosterbruder.github.io/tags/</loc>
+    <lastmod>2021-02-18T20:56:31+01:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://klosterbruder.github.io/tags/libvirt/</loc>
+    <lastmod>2021-01-17T19:12:46+01:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://klosterbruder.github.io/tags/perl/</loc>
+    <lastmod>2021-01-17T19:12:46+01:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://klosterbruder.github.io/categories/programming/</loc>
+    <lastmod>2021-01-17T19:12:46+01:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://klosterbruder.github.io/2021/01/trust-but-verify-your-types/</loc>
+    <lastmod>2021-01-17T19:12:46+01:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://klosterbruder.github.io/tags/xml/</loc>
+    <lastmod>2021-01-17T19:12:46+01:00</lastmod>
+  </url>
+  
+  <url>
     <loc>https://klosterbruder.github.io/2021/01/2021/</loc>
     <lastmod>2021-01-03T19:57:17+01:00</lastmod>
   </url>
@@ -14,26 +84,6 @@
   
   <url>
     <loc>https://klosterbruder.github.io/tags/blogging/</loc>
-    <lastmod>2021-01-03T19:57:17+01:00</lastmod>
-  </url>
-  
-  <url>
-    <loc>https://klosterbruder.github.io/categories/</loc>
-    <lastmod>2021-01-03T19:57:17+01:00</lastmod>
-  </url>
-  
-  <url>
-    <loc>https://klosterbruder.github.io/</loc>
-    <lastmod>2021-01-03T19:57:17+01:00</lastmod>
-  </url>
-  
-  <url>
-    <loc>https://klosterbruder.github.io/posts/</loc>
-    <lastmod>2021-01-03T19:57:17+01:00</lastmod>
-  </url>
-  
-  <url>
-    <loc>https://klosterbruder.github.io/tags/</loc>
     <lastmod>2021-01-03T19:57:17+01:00</lastmod>
   </url>
   
@@ -79,16 +129,6 @@
   
   <url>
     <loc>https://klosterbruder.github.io/tags/mail/</loc>
-    <lastmod>2019-08-30T21:19:17+02:00</lastmod>
-  </url>
-  
-  <url>
-    <loc>https://klosterbruder.github.io/tags/rant/</loc>
-    <lastmod>2019-08-30T21:19:17+02:00</lastmod>
-  </url>
-  
-  <url>
-    <loc>https://klosterbruder.github.io/categories/software/</loc>
     <lastmod>2019-08-30T21:19:17+02:00</lastmod>
   </url>
   

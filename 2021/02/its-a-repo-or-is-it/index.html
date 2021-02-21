@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<title>It&#39;s a repo! Or is it?</title>
+		<meta name="viewport" content="width=device-width">
+		
+		<link rel="stylesheet" href="https://klosterbruder.github.io/css/hybrid.css">
+		<link rel="stylesheet" href="https://klosterbruder.github.io/css/style.css">
+		<link rel="stylesheet" href="https://klosterbruder.github.io/css/colors-dark.css">
+
+		
+	</head>
+	<body>
+		<header id="header">
+			<h1><a href="https://klosterbruder.github.io/">klosterbruders tech rants</a></h1>
+			<p>Have you tried turning it off and on again?</p>
+		</header>
+
+		<div id="page">
+			<div id="sidebar">
+				<nav>
+	
+		<ul class="nav">
+			
+				<li><a href="/index.xml"><span>Feed</span></a></li>
+			
+				<li><a href="https://github.com/klosterbruder/"><span>Github</span></a></li>
+			
+		</ul>
+	
+</nav>
+
+			</div>
+
+			<div id="content">
+				
+	<article class="post">
+		<h1><a href="https://klosterbruder.github.io/2021/02/its-a-repo-or-is-it/">It&#39;s a repo! Or is it?</a> </h1>
+
+		<div class="post-content"><p>A few customers at my work still use Elasticsearch version 5, because their software doesn&rsquo;t support anything newer. The facts their software doesn&rsquo;t support anything newer, or that Elasticsearch has enough differences between versions to cause these incompatibilities would be worth rants of their own, but this is different.</p>
+<p>So I was deploying a new software. And on a few servers, the deployment fell over - updating the <code>apt</code> cache failed. Because, apparently, the Elasticsearch 5.x repository was no longer having a <code>Release</code> file, and was therefore no longer a valid repository for <code>apt</code>. Manual checking revealed that this was true - and wasn&rsquo;t.</p>
+<pre><code>root@server25:/# apt update
+[...]
+Err:10 https://artifacts.elastic.co/packages/5.x/apt stable Release
+  404  Not Found
+[...]
+E: The repository 'https://artifacts.elastic.co/packages/5.x/apt stable Release' does not have a Release file.
+N: Updating from such a repository can't be done securely, and is therefore disabled by default.
+N: See apt-secure(8) manpage for repository creation and user configuration details.
+</code></pre><pre><code>root@server25:/# apt update
+[...]
+Ign:10 https://artifacts.elastic.co/packages/5.x/apt stable InRelease
+[...]
+Get:12 https://artifacts.elastic.co/packages/5.x/apt stable Release [5116 B]
+Get:13 https://artifacts.elastic.co/packages/5.x/apt stable Release.gpg [473 B]
+Get:15 https://artifacts.elastic.co/packages/5.x/apt stable/main amd64 Packages [42.6 kB]
+[...]
+</code></pre><p>This was on the same server, both commands being less than 20 seconds apart. The heck? I mean, really, the heck? Is it a valid repo, or is it not?! Apparently it&rsquo;s both, depending on when you ask. And of course the only constant was that it would sometimes fail. Not when, not where, not how often.</p>
+<p>A bit of digging revealed that the DNS for <code>elastic.co</code> is managed via Amazon Route 53, while the IP points to the Google Compute Engine. That must be the cloud you hear so much of. You know, the cloud where you put your stuff and it just magically works, always.</p>
+<p>Alternatively, the <a href="http://pages.cs.wisc.edu/~ballard/bofh/bofhserver.pl">BOfH excuse server</a> came up with this:</p>
+<blockquote>
+<p>electro-magnetic pulses from French above ground nuke testing.</p>
+</blockquote>
+<p>That seems just as likely.</p>
+</div>
+
+		<p class="meta">Posted on <span class="postdate">18. February 2021</span></p>
+	</article>
+
+			</div>
+
+			<footer id="footer">
+				<p class="copyright">
+					
+						Powered by <a href="https://gohugo.io/">Hugo</a> and the
+						<a href="https://github.com/bake/solar-theme-hugo">Solar</a>-theme.
+					
+				</p>
+			</footer>
+		</div>
+
+		
+	</body>
+</html>
